@@ -39,9 +39,7 @@ body {
   color: inherit;
   font-style: inherit;
   align-items: center;
-  transition-property: color;
-  transition-duration: 250ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .list {
@@ -55,20 +53,22 @@ body {
 .link:focus {
   color: var(--active-color);
 }
-.active {
+.current {
   position: relative;
-
+  color: var(--active-color);
 }
 
-.active::after {
+.current::after {
+  content: "";
   position: absolute;
   height: 4px;
-  width: 78px;
+  width: 100%;
   background-color: var(--active-color);
   border-radius: 2px;
-  bottom: 28px;
+  top: 44px;
 
 }
+
 .btn {
   font-family: inherit;
   background-color: var(--background-btn-color);
@@ -76,9 +76,7 @@ body {
   cursor: pointer;
   text-align: center;
   border-radius: 4px;
-  transition-property: box-shadow;
-  transition-duration: 250ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn:hover,
@@ -331,12 +329,8 @@ body {
   border-radius: 50%;
   align-items: center;
   justify-content: center;
-  transition-property: color;
-  transition-duration: 250ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-property: background-color;
-  transition-duration: 250ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);  
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1), 
+  background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sn-icon {
@@ -365,14 +359,13 @@ body {
   
 }
 .hover-boder {
-  transition-property: border;
-  transition-duration: 250ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-
+  transition: border 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .hover-boder:hover {
   border: 1px solid var(--active-color);
 }
+
 .client-logo {
   display: flex;
   width: 106px;
@@ -448,13 +441,9 @@ body {
   line-height: 1.62;
   font-weight: 500;
   padding: 6px 22px;
-  transition-property: color;
-  transition-duration: 250ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-property: background-color;
-  transition-duration: 250ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+  background-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
+  box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);  
 }
 
 .btn-active {
@@ -472,6 +461,9 @@ body {
 .filter-btn:active {
   background-color: var(--active-color);
   color: var(--white-color);
+  box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1),
+  0px 1px 2px rgba(0, 0, 0, 0.08),
+  0px 2px 2px rgba(0, 0, 0, 0.12);
 }
 
 .filter .list-item:not(:last-child) {
@@ -502,10 +494,7 @@ body {
   margin-bottom: 30px;
   margin-right: 30px;
   position: relative;
-  transition-property: box-shadow;
-  transition-duration: 250ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  
+  transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .portfolio-card:hover {
@@ -535,6 +524,8 @@ body {
 }
 .wrapper-card {
   position: relative;
+  overflow: hidden;
+
 }
 .wrapper-card::before {
   display: inline-block;
@@ -544,9 +535,9 @@ body {
   height: 100%;
   background-color: var(--wrapper-portfolio-card);
   opacity: 0;
-  transition-property: opacity;
-  transition-duration: 250ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+  transform 2000ms cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: bottom center;
 }
  
 .wrapper-description {
@@ -556,11 +547,10 @@ body {
   position: absolute;
   top: 0;
   opacity: 0;
-  transition-property: opacity;
-  transition-duration: 250ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+  transform 2000ms cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .wrapper-text {
   color: var(--white-color);
   margin: 0;
@@ -570,6 +560,17 @@ body {
 .portfolio-card:hover .wrapper-description,
 .portfolio-card:hover .wrapper-card::before {
   opacity: 1;
+  animation: animationWrapper 500ms 1;
+  
+}
+
+@keyframes animationWrapper {
+  0% {
+    transform: translateY(294px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 /* MODAL */
@@ -601,16 +602,19 @@ body {
  
 }
 .close-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
   display: flex;
   width: 30px;
   height: 30px;
   background-color: var(--white-color);
   padding: 0;
-  margin: 8px;
   border-radius: 50%;
   border: 1px solid var(--border-modal-color);
   align-items: center;
   justify-content: center;
+
 }
 .close-icon {
   width: 18px;
